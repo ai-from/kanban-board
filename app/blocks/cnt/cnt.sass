@@ -1,0 +1,47 @@
+.cnt
+  display: grid
+  grid-template-columns: repeat(4, 1fr)
+  grid-column-gap: 40px
+  padding: 26px 0 0
+  margin: 0 0 50px
+  .item
+    .top_part
+      display: grid
+      grid-template-columns: 1fr min-content
+      margin: 0 0 10px
+      .left_part
+        display: grid
+        grid-template-columns: repeat(2, min-content)
+        grid-column-gap: 8px
+        align-items: center
+        .title
+          white-space: nowrap
+          font-family: RubikMedium, sans-serif
+          font-size: 14px
+          color: $dark
+      .right_part
+        display: grid
+        grid-template-columns: repeat(2, min-content)
+        grid-column-gap: 12px
+        align-items: center
+        img
+          cursor: pointer
+    &.done
+      .tasks
+        .right_part
+          .title
+            opacity: 50%
+            text-decoration: line-through
+    .add_task
+      background: $btn_plus
+      border-radius: 4px
+      width: 32px
+      height: 32px
+      position: relative
+      cursor: pointer
+      display: grid
+      margin: 0 auto
+      img
+        margin: auto
+      &:hover
+        background: $btn_plus_active
