@@ -31,7 +31,7 @@ const boardData = [
     top: {pic: 'completed', title: 'Сдана', meta: 'Completed'},
     tasks: [
       {pics: ['person-1', 'person-2'], number: 20413, title: 'Временной промежуток при фильтрации'},
-      {pics: ['person-1', 'person-2'], number: 20413, title: 'Статистика по икочникам звонка'},
+      {pics: ['person-1', 'person-2'], number: 20413, title: 'Статистика по источникам звонка'},
       {pics: ['person-1', 'person-2'], number: 20413, title: 'Добавить график к статистике пользователей (количество регистраций)'},
       {pics: ['person-1', 'person-2'], number: 20413, title: 'Создать тестовую сборку сервиса (для обработки нововведений)'}
     ]
@@ -40,11 +40,16 @@ const boardData = [
 
 const changeData = [...boardData] || []
 
-function getTasks(tasks){
+getTasks = tasks => {
   let res = ''
-  tasks.forEach(task => {
+  tasks.forEach((task, i) => {
     return res += `
-       <div class="task">
+       <div
+          id='${+ new Date() + i}'
+          class="task" 
+          draggable="true" 
+          ondragstart="return dragStart(event)"
+       >
          <div class="left_part">
            <div class="persons">
              <img src="./assets/img/task/${task.pics[0]}.png" alt="" title="">
@@ -63,7 +68,7 @@ function getTasks(tasks){
   return res
 }
 
-function getBoard(){
+getBoard = () => {
   changeData.forEach((column, i) => {
     table.insertAdjacentHTML('beforeend', `
       <div class="item">
@@ -77,7 +82,12 @@ function getBoard(){
             <img onclick="deleteColumn('${i}')" src="./assets/img/cnt/delete.svg" alt="Delete" title="Delete">
           </div>
         </div>
-        <div class="tasks">
+        <div class="tasks"
+             ondragenter="return dragEnter(event)"
+             ondrop="return dragDrop(event)"
+             ondragover="return dragOver(event)"
+             ondragleave="return dragLeave(event)"
+        >
           ${getTasks(column.tasks)}
         </div>
         <div class="add_task">
@@ -89,7 +99,7 @@ function getBoard(){
   setClass()
 }
 
-function addColumn(){
+addColumn = () => {
   const metas = ['Backlog', 'Working', 'Done', 'Completed']
   const columns = []
   if(changeData.length >= 4) return false
@@ -109,13 +119,13 @@ function addColumn(){
   }
 }
 
-function deleteColumn(i){
+deleteColumn = (i) => {
   changeData.splice(i, 1)
   table.innerHTML = ''
   getBoard()
 }
 
-function setClass(){
+setClass = () => {
   let currClass = ''
   if(changeData.length === 3) currClass = 'three'
   if(changeData.length === 2) currClass = 'two'
@@ -124,3 +134,32 @@ function setClass(){
 }
 
 getBoard()
+
+// drag and drop
+dragEnter = e => {
+  e.preventDefault()
+  return true
+}
+dragDrop = e => {
+  const data = e.dataTransfer.getData('Text')
+  const tasks = e.target.closest('.tasks')
+  tasks.insertBefore(document.getElementById(data), tasks.firstElementChild)
+  tasks.classList.remove('drag-hover')
+  e.stopPropagation()
+  return false
+}
+dragOver = e => {
+  e.preventDefault()
+  const tasks = e.target.closest('.tasks')
+  tasks.classList.add('drag-hover')
+}
+dragLeave = e => {
+  const tasks = e.target.closest('.tasks')
+  tasks.classList.remove('drag-hover')
+}
+dragStart = e => {
+  e.dataTransfer.effectAllowed = 'move'
+  e.dataTransfer.setData('Text', e.target.getAttribute('id'))
+  e.dataTransfer.setDragImage(e.target, e.target.offsetWidth/2, e.target.offsetHeight/2)
+  return true
+}

@@ -64,6 +64,11 @@
           img
             cursor: pointer
       .tasks
+        min-height: 144px
+        border: 1px solid transparent
+        padding: 2px
+        &.drag-hover
+          border: 1px dashed rgba($dark, .5)
         .task
           display: grid
           grid-template-columns: 64px 1fr
