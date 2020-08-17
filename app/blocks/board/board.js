@@ -52,10 +52,10 @@ getTasks = tasks => {
        >
          <div class="left_part">
            <div class="persons">
-             <img draggable="false" src="./assets/img/task/${task.pics[0]}.png" alt="" title="">
-             <img draggable="false" src="./assets/img/task/${task.pics[1]}.png" alt="" title="">
+             <img draggable="false" src="./assets/img/board/${task.pics[0]}.png" alt="" title="">
+             <img draggable="false" src="./assets/img/board/${task.pics[1]}.png" alt="" title="">
            </div>
-           <img draggable="false" class="arrows" src="./assets/img/task/arrows.svg" alt="" title="">
+           <img draggable="false" class="arrows" src="./assets/img/board/arrows.svg" alt="" title="">
          </div>
          <div class="right_part">
            <div class="title">
@@ -74,12 +74,12 @@ getBoard = () => {
       <div class="item">
         <div class="top_part">
           <div class="left_part">
-            <img src="./assets/img/cnt/${column.top.pic}.png" alt="${column.top.meta}" title="${column.top.meta}">
+            <img src="./assets/img/board/${column.top.pic}.png" alt="${column.top.meta}" title="${column.top.meta}">
             <div class="title">${column.top.title}</div>
           </div>
           <div class="right_part">
-            <img src="./assets/img/cnt/edit.svg" alt="Edit" title="Edit">
-            <img onclick="deleteColumn('${i}')" src="./assets/img/cnt/delete.svg" alt="Delete" title="Delete">
+            <img src="./assets/img/board/edit.svg" alt="Edit" title="Edit">
+            <img onclick="deleteColumn('${i}')" src="./assets/img/board/delete.svg" alt="Delete" title="Delete">
           </div>
         </div>
         <div class="tasks"
@@ -91,7 +91,7 @@ getBoard = () => {
           ${getTasks(column.tasks)}
         </div>
         <div class="add_task">
-          <img src="./assets/img/cnt/plus.svg" alt="Add" title="Add">
+          <img src="./assets/img/board/plus.svg" alt="Add" title="Add">
         </div>
       </div>
     `)
