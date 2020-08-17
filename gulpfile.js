@@ -82,7 +82,7 @@ gulp.task('libsCSS', function(){
 gulp.task('script', function(){
     return gulp.src(path.script)
     .pipe(rigger())
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(gulp.dest('dist/js'))
     .pipe(browserSync.reload({stream: true}));
 });
@@ -91,7 +91,7 @@ gulp.task('script', function(){
 gulp.task('libsScript', function(){
     return gulp.src(path.libsScript)
       .pipe(rigger())
-      .pipe(uglify())
+      // .pipe(uglify())
       .pipe(gulp.dest('dist/js'))
       .pipe(browserSync.reload({stream: true}));
 });
