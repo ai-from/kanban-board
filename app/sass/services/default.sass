@@ -1,0 +1,65 @@
+/*========== default ==========*/
+html, body
+	font-family: $mainFont
+	font-size: $mainSize
+	color: $mainColor
+	line-height: $mainLineHeight
+
+body
+	min-width: $minWidthContent
+
+a
+	color: $linkColor
+	&:hover
+		color: $linkColorHover
+	&:focus
+		color: $linkColorHover
+        text-decoration: none	
+
+textarea
+	resize: none
+	border-radius: 0
+	-webkit-appearance: none
+
+input
+	border-radius: 0
+	-webkit-appearance: none
+
+.clearfix:after
+	content: ''
+	display: block
+	clear: both
+
+::-webkit-input-placeholder
+	font-family: $mainFont
+	font-size: $mainSize
+	color: $grey
+::-moz-placeholder
+	font-family: $mainFont
+	font-size: $mainSize
+	color: $grey
+::-moz-placeholder
+	font-family: $mainFont
+	font-size: $mainSize
+	color: $grey
+::-ms-input-placeholder
+	font-family: $mainFont
+	font-size: $mainSize
+	color: $grey
+
+// footer to the bottom
+//
+// using flex
+//body
+	//display: flex
+	//flex-direction: column
+	//min-height: 100vh
+//.content
+	//flex: 1
+//
+// using grid
+//body
+//	display: grid
+//	grid-template-columns: 1fr
+//	grid-template-rows: min-content 1fr min-content
+//	min-height: 100vh
