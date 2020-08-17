@@ -86,6 +86,7 @@ function getBoard(){
       </div>
     `)
   })
+  setClass()
 }
 
 function addColumn(){
@@ -112,6 +113,14 @@ function deleteColumn(i){
   changeData.splice(i, 1)
   table.innerHTML = ''
   getBoard()
+}
+
+function setClass(){
+  let currClass = ''
+  if(changeData.length === 3) currClass = 'three'
+  if(changeData.length === 2) currClass = 'two'
+  if(changeData.length === 1) currClass = 'one'
+  table.className = currClass
 }
 
 getBoard()

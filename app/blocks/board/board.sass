@@ -34,7 +34,14 @@
     grid-column-gap: 40px
     padding: 26px 0 0
     margin: 0 0 50px
+    &.three
+      grid-template-columns: repeat(3, 1fr)
+    &.two
+      grid-template-columns: repeat(2, 1fr)
+    &.one
+      grid-template-columns: 1fr
     .item
+      width: 278px
       .top_part
         display: grid
         grid-template-columns: 1fr min-content
@@ -56,6 +63,39 @@
           align-items: center
           img
             cursor: pointer
+      .tasks
+        .task
+          display: grid
+          grid-template-columns: 64px 1fr
+          border-radius: 4px
+          overflow: hidden
+          cursor: pointer
+          margin-bottom: 16px
+          .left_part
+            background: $task_left
+            padding: 15px
+            text-align: center
+            .persons
+              width: min-content
+              display: grid
+              margin: 0 auto 24px
+              img
+                width: 32px
+                height: 32px
+                &:last-child
+                  margin-top: -10px
+            .arrows
+              margin: 0 auto
+          .right_part
+            background: $task_right
+            padding: 15px 15px 15px 12px
+            .title
+              font-family: RubikMedium, sans-serif
+              font-size: 13px
+              color: $blue
+              span
+                font-family: RubikM, sans-serif
+                color: $dark
       &.done
         .tasks
           .right_part
