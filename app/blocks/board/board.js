@@ -47,15 +47,15 @@ getTasks = tasks => {
        <div
           id='${+ new Date() + i}'
           class="task" 
-          draggable="true" 
+          draggable="true"
           ondragstart="return dragStart(event)"
        >
          <div class="left_part">
            <div class="persons">
-             <img src="./assets/img/task/${task.pics[0]}.png" alt="" title="">
-             <img src="./assets/img/task/${task.pics[1]}.png" alt="" title="">
+             <img draggable="false" src="./assets/img/task/${task.pics[0]}.png" alt="" title="">
+             <img draggable="false" src="./assets/img/task/${task.pics[1]}.png" alt="" title="">
            </div>
-           <img class="arrows" src="./assets/img/task/arrows.svg" alt="" title="">
+           <img draggable="false" class="arrows" src="./assets/img/task/arrows.svg" alt="" title="">
          </div>
          <div class="right_part">
            <div class="title">
