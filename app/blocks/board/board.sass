@@ -28,6 +28,9 @@
       &:hover
         background: $blue
         color: $task_right
+      &[disabled = 'disabled']
+        background: rgba($dark, .5)
+        color: $dark
   #boardTable
     display: grid
     grid-template-columns: repeat(4, 1fr)
@@ -100,7 +103,7 @@
               font-size: 13px
               color: $blue
               span
-                font-family: RubikM, sans-serif
+                font-family: Rubik, sans-serif
                 color: $dark
       &.done
         .tasks

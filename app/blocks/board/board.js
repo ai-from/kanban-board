@@ -1,4 +1,6 @@
 const table = document.getElementById('boardTable')
+const metas = ['Backlog', 'Working', 'Done', 'Completed']
+const addColumnBtn = document.getElementById('addColumn')
 
 const boardData = [
   {
@@ -49,6 +51,7 @@ getTasks = tasks => {
           class="task" 
           draggable="true"
           ondragstart="return dragStart(event)"
+          data-task="${i}"
        >
          <div class="left_part">
            <div class="persons">
@@ -71,7 +74,7 @@ getTasks = tasks => {
 getBoard = () => {
   changeData.forEach((column, i) => {
     table.insertAdjacentHTML('beforeend', `
-      <div class="item">
+      <div class="item" data-column="${i}">
         <div class="top_part">
           <div class="left_part">
             <img src="./assets/img/board/${column.top.pic}.png" alt="${column.top.meta}" title="${column.top.meta}">
@@ -97,10 +100,10 @@ getBoard = () => {
     `)
   })
   setClass()
+  isDisabled()
 }
 
 addColumn = () => {
-  const metas = ['Backlog', 'Working', 'Done', 'Completed']
   const columns = []
   if(changeData.length >= 4) return false
   else {
@@ -127,10 +130,18 @@ deleteColumn = (i) => {
 
 setClass = () => {
   let currClass = ''
-  if(changeData.length === 3) currClass = 'three'
-  if(changeData.length === 2) currClass = 'two'
-  if(changeData.length === 1) currClass = 'one'
+  switch (changeData.length) {
+    case 3: currClass = 'three'; break
+    case 2: currClass = 'two'; break
+    case 1: currClass = 'one'
+  }
   table.className = currClass
+}
+
+isDisabled = () => {
+  changeData.length >= 4 ?
+    addColumnBtn.setAttribute('disabled', 'disabled') :
+    addColumnBtn.removeAttribute('disabled')
 }
 
 getBoard()
@@ -141,10 +152,11 @@ dragEnter = e => {
   return true
 }
 dragDrop = e => {
-  const data = e.dataTransfer.getData('Text')
+  const data = JSON.parse(e.dataTransfer.getData('Task'))
   const tasks = e.target.closest('.tasks')
-  tasks.insertBefore(document.getElementById(data), tasks.firstElementChild)
   tasks.classList.remove('drag-hover')
+  data.to = e.target.closest('.item').dataset.column
+  updateAfterDrop(data)
   e.stopPropagation()
   return false
 }
@@ -159,7 +171,21 @@ dragLeave = e => {
 }
 dragStart = e => {
   e.dataTransfer.effectAllowed = 'move'
-  e.dataTransfer.setData('Text', e.target.getAttribute('id'))
+  const data = {
+    id: e.target.getAttribute('id'),
+    from: {
+      column: e.target.closest('.item').dataset.column,
+      task: e.target.closest('.task').dataset.task
+    }
+  }
+  e.dataTransfer.setData('Task', JSON.stringify(data))
   e.dataTransfer.setDragImage(e.target, e.target.offsetWidth/2, e.target.offsetHeight/2)
   return true
+}
+updateAfterDrop = obj => {
+  const insertTask = changeData[+obj.from.column].tasks[+obj.from.task]
+  changeData[+obj.from.column].tasks.splice(+obj.from.task, 1)
+  changeData[+obj.to].tasks.unshift(insertTask)
+  table.innerHTML = ''
+  getBoard()
 }
