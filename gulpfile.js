@@ -2,7 +2,7 @@ const gulp            = require('gulp'),
     importCss         = require('gulp-import-css'),
     sass 					    = require('gulp-sass'),
     browserSync				= require('browser-sync'),
-    uglify		    		= require('gulp-uglifyjs'),
+    uglify		    		= require('gulp-uglify-es').default,
     cleanCss		    	= require('gulp-clean-css'),
     rigger		        = require('gulp-rigger'),
     del   		        = require('del'),
@@ -10,7 +10,7 @@ const gulp            = require('gulp'),
     pngquant				  = require('imagemin-pngquant'),
     cache 					  = require('gulp-cache'),
     autoprefixer      = require('gulp-autoprefixer'),
-    include           = require('gulp-file-include');
+    include           = require('gulp-file-include')
 
 const path = {
     html:             'app/*.html',
@@ -64,6 +64,7 @@ gulp.task('sass', function(){
         'ie 8',
         'ie 7'],
         {cascade: true}))
+    .pipe(cleanCss())
     .pipe(gulp.dest('dist/css'))
     .pipe(browserSync.reload({stream: true}));
 });
@@ -82,7 +83,7 @@ gulp.task('libsCSS', function(){
 gulp.task('script', function(){
     return gulp.src(path.script)
     .pipe(rigger())
-    // .pipe(uglify())
+    .pipe(uglify())
     .pipe(gulp.dest('dist/js'))
     .pipe(browserSync.reload({stream: true}));
 });
@@ -91,7 +92,7 @@ gulp.task('script', function(){
 gulp.task('libsScript', function(){
     return gulp.src(path.libsScript)
       .pipe(rigger())
-      // .pipe(uglify())
+      .pipe(uglify())
       .pipe(gulp.dest('dist/js'))
       .pipe(browserSync.reload({stream: true}));
 });
