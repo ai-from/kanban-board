@@ -85,7 +85,7 @@ getBoard = () => {
             <img onclick="deleteColumn('${i}')" src="./assets/img/board/delete.svg" alt="Delete" title="Delete">
           </div>
         </div>
-        <div class="tasks"
+        <div class="tasks ${isEmptyTasks(i)}"
              ondragenter="return dragEnter(event)"
              ondrop="return dragDrop(event)"
              ondragover="return dragOver(event)"
@@ -143,6 +143,8 @@ isDisabled = () => {
     addColumnBtn.setAttribute('disabled', 'disabled') :
     addColumnBtn.removeAttribute('disabled')
 }
+
+isEmptyTasks = i => changeData[i].tasks.length === 0 ? 'empty' : ''
 
 getBoard()
 
